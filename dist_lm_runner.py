@@ -68,6 +68,8 @@ def main():
                         type=lambda x: x.lower()=='true', default=True, metavar='S',
                         help='do evaluation or not.')
     args = parser.parse_args()
+
+    print("args: ", args)
     
     torch.manual_seed(args.seed)
     random.seed(args.seed)
@@ -80,8 +82,10 @@ def main():
         device = torch.device('cpu')
 
     init_communicators(args)
+    print("--- Communicators initialized ---")
     
     config = GPTConfig.from_pretrained(args.model_name)
+    print("--- Config loaded ---")
     
     if get_pipeline_parallel_rank() == args.pipeline_group_size-1:
         args.num_layers -= 3
@@ -99,6 +103,7 @@ def main():
         config.n_layer = args.num_layers  # num_layers per node
     
     tokenizer = build_tokenizer(args)
+    print("Tokenizer loaded")
     tokenizer.model_max_length = args.seq_length
     config.vocab_size = tokenizer.vocab_size
     config.bos_token_id = tokenizer.bos_token_id

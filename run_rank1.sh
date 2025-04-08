@@ -3,7 +3,7 @@
 # --- Configuration ---
 MASTER_TAILSCALE_IP="100.95.237.88"
 TAILSCALE_IFNAME="tailscale0"
-PORT="9033"
+PORT="9034"
 NUM_LAYERS_PER_STAGE=24 # 48 / 2 stages
 
 # --- Base Arguments ---
@@ -35,7 +35,7 @@ python dist_lm_runner.py \
     --world-size 2 \
     --pipeline-group-size 2 \
     --data-group-size 1 \
-    --rank 0 \
+    --rank 1 \
     --cuda-id 0
 
-echo "Rank 0 finished."
+echo "Rank 1 finished."

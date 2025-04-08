@@ -44,6 +44,7 @@ def init_communicators(args):
     default_init(args)
     assert args.world_size == args.data_group_size * args.pipeline_group_size
     if args.world_size == args.data_group_size * args.pipeline_group_size:
+        print("Initializing the communication")
         #    We do the following hard code alignment of communication groups:
         #    Suppose there are 8 instances (world_size), and 4 data parallel groups (data_group_size is 2),
         #    Then there would be 2 pipeline parallel groups (pipeline_group_size is 4), then the groups will look like:
